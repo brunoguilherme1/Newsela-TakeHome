@@ -62,16 +62,6 @@ Despite the time constraint, this 2-stage strategy balances **speed**, **scalabi
 | Coverage\@k  | 0.1001 | 0.1469 | 0.1752 | 0.2386 | 0.3148 |
 | Hits\@k      | 0.1001 | 0.1469 | 0.1752 | 0.2386 | 0.3148 |
 
-### ✅ Re-ranking with LightGBM (content\_20 evaluation)
-
-| Metric    | Score  |
-| --------- | ------ |
-| Precision | 0.4386 |
-| Recall    | 0.3051 |
-| F1 Score  | 0.4099 |
-| F2 Score  | 0.3049 |
-| ROC AUC   | 0.9616 |
-
 ### ✅ Cross-Validation (LightGBM)
 
 | Metric    | Score  |
