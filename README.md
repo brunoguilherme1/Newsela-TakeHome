@@ -72,6 +72,8 @@ Despite the time constraint, this 2-stage strategy balances **speed**, **scalabi
 | F2 Score  | 0.4149 |
 | ROC AUC   | 0.9716 |
 
+This approach aligns with the Learning Equality Kaggle competition, which tackled the inverse task: recommending topics for each content. While top 100 solutions reached ~0.56 F2, our 0.41 F2 baseline—built in under 3 hours—shows strong potential as a solid starting point.
+
 ---
 
 ## 🧩 Model Architecture
