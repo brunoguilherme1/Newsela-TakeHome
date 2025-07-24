@@ -104,11 +104,6 @@ make setup        # Create virtual env and install requirements
 make train        # Train and save LightGBM model
 make predict      # Evaluate model on content_20.csv
 ```
-
----
-
-Perfect! Here’s the updated **🧠 Limitations & Future Work** section without mentioning Kaggle, and instead focusing on the use of **LLMs** like **ChatGPT** or **RAG architectures**:
-
 ---
 
 ## 🧠 Limitations & Future Work
