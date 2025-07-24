@@ -1,6 +1,6 @@
 # 📚 Newsela-TakeHome: Topic Recommendation System
 
-This project implements a **retrieval and re-ranking model** for recommending relevant **K–12 topics** to educational content. Given the 3-hour constraint outlined in the [Newsela Take-Home Instructions](https://www.kaggle.com/competitions/learning-equality-curriculum-recommendations), we built a fast, modular, and accurate baseline system combining semantic embeddings with traditional ML-based ranking.
+This project tackles the challenge of recommending relevant K–12 topics for educational content, where each content item may be associated with multiple topics. To address this, we implemented a retrieval-and-re-ranking approach: first retrieving the top 50 candidate topics using semantic similarity (FAISS over SentenceTransformer embeddings), then re-ranking them with a LightGBM classifier trained on handcrafted features. Given the 3-hour constraint, our focus was on building a fast, modular, and interpretable baseline that balances performance and explainability.
 
 ---
 
@@ -29,9 +29,9 @@ Despite the time constraint, this 2-stage strategy balances **speed**, **scalabi
 
 ### 🔍 `1.0_EDA.ipynb`
 
-* Data loading, inspection, and cleaning
-* Strategy justification for multilingual support
-* Stratified split by language for validation
+* Data loading,
+* Inspection
+* Analysis
 
 ### 🧠 `2.0_Model.ipynb`
 
@@ -40,6 +40,8 @@ Despite the time constraint, this 2-stage strategy balances **speed**, **scalabi
 * Feature engineering
 * LightGBM training with SMOTE resampling
 * Evaluation (F2, AUC, Precision, Recall)
+
+**This notebook justifies the end-to-end modeling pipeline, highlighting key design decisions in embeddings, retrieval, resampling, and LightGBM training based on performance trade-offs.**
 
 ⚡ **Run both notebooks in Google Colab with GPU — total runtime < 1 hour**
 
