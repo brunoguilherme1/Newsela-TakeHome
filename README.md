@@ -32,6 +32,8 @@ Despite the time constraint, this 2-stage strategy balances **speed**, **scalabi
 * Data loading,
 * Inspection
 * Analysis
+[Open in Colab](https://colab.research.google.com/drive/1S1NvC-9-oXDpdimtjnh-qDDFEkMjm5Qj?usp=sharing)
+  
 
 ### 🧠 `2.0_Model.ipynb`
 
