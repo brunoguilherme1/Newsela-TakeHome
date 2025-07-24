@@ -41,7 +41,7 @@ Despite the time constraint, this 2-stage strategy balances **speed**, **scalabi
 * LightGBM training with SMOTE resampling
 * Evaluation (F2, AUC, Precision, Recall)
 
-**This notebook justifies the end-to-end modeling pipeline, highlighting key design decisions in embeddings, retrieval, resampling, and LightGBM training based on performance trade-offs.**
+**This notebook justifies the end-to-end modeling pipeline, highlighting key design decisions in embeddings, retrieval and LightGBM training based on performance trade-offs.**
 
 ⚡ **Run both notebooks in Google Colab with GPU — total runtime < 1 hour**
 
