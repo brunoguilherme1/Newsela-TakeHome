@@ -57,7 +57,8 @@ Despite the time constraint, this 2-stage strategy balances **speed**, **scalabi
 | Precision\@k | 0.1426 | 0.0793 | 0.0563 | 0.0342 | 0.0098 |
 | Recall\@k    | 0.1001 | 0.1469 | 0.1666 | 0.1937 | 0.2633 |
 | F1\@k        | 0.1107 | 0.0947 | 0.0774 | 0.0542 | 0.0184 |
-| Coverage\@50 | —      | —      | —      | —      | 0.3148 |
+| Coverage\@k  | 0.1001 | 0.1469 | 0.1752 | 0.2386 | 0.3148 |
+| Hits\@k      | 0.1001 | 0.1469 | 0.1752 | 0.2386 | 0.3148 |
 
 ### ✅ Re-ranking with LightGBM (content\_20 evaluation)
 
