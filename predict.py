@@ -1,5 +1,3 @@
-# predict.py
-
 import os
 import numpy as np
 import pandas as pd
@@ -8,6 +6,15 @@ import faiss
 from typing import List, Optional
 from gensim.models import Word2Vec
 from sentence_transformers import SentenceTransformer
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import (
+    precision_score,
+    recall_score,
+    f1_score,
+    fbeta_score,
+    roc_auc_score
+)
+
 from utils import encode_text_with_tfidf_word2vec, count_overlap_and_lengths
 
 
@@ -17,15 +24,17 @@ class PredictionPipeline:
         sentence_model_path: str = "sentence_model",
         w2v_path: str = "models/word2vec_topics.model",
         tfidf_path: str = "models/tfidf.pkl",
+        idf_dict_path: str = "models/idf_dict.pkl",
         lgbm_path: str = "models/lgbm_model.pkl",
         topics_path: str = "data/topics.csv",
         topic_embeddings_path: str = "data/topic_embeddings.npy",
-        faiss_index_path: str = "faiss_index.index"
+        faiss_index_path: str = "models/faiss_index.index"
     ):
         self._load_models(
             sentence_model_path,
             w2v_path,
             tfidf_path,
+            idf_dict_path,
             lgbm_path,
             topics_path,
             topic_embeddings_path,
@@ -37,6 +46,7 @@ class PredictionPipeline:
         sentence_model_path,
         w2v_path,
         tfidf_path,
+        idf_dict_path,
         lgbm_path,
         topics_path,
         topic_embeddings_path,
@@ -47,6 +57,7 @@ class PredictionPipeline:
         self.encoder = SentenceTransformer(sentence_model_path)
         self.w2v = Word2Vec.load(w2v_path)
         self.tfidf = joblib.load(tfidf_path)
+        self.idf_dict = joblib.load(idf_dict_path)
         self.lgbm_pipeline = joblib.load(lgbm_path)
 
         self.topics = pd.read_csv(topics_path)
@@ -67,7 +78,7 @@ class PredictionPipeline:
 
     def _build_feature_vector(self, query_text: str, query_vec: np.ndarray, topic_id: str) -> np.ndarray:
         topic_text = self.topic_texts.get(topic_id, "")
-        topic_vec = encode_text_with_tfidf_word2vec(topic_text, self.w2v, self.tfidf.idf_)
+        topic_vec = encode_text_with_tfidf_word2vec(topic_text, self.w2v, self.idf_dict)
 
         dot = np.dot(query_vec, topic_vec)
         cosine_sim = dot / (np.linalg.norm(query_vec) * np.linalg.norm(topic_vec) + 1e-9)
@@ -83,10 +94,8 @@ class PredictionPipeline:
         ])
 
     def predict(self, query: str, top_k: int = 50) -> pd.DataFrame:
-        print(f"🔎 Processing query: {query}")
-
         query_embedding = self._encode_query(query)
-        query_vec = encode_text_with_tfidf_word2vec(query, self.w2v, self.tfidf.idf_)
+        query_vec = encode_text_with_tfidf_word2vec(query, self.w2v, self.idf_dict)
 
         candidate_ids = self._retrieve_candidates(query_embedding, top_k)
         feature_matrix = np.vstack([
@@ -105,14 +114,11 @@ class PredictionPipeline:
 
 
 # -------------------------
-# ✅ Example usage
+# ✅ Example usage and evaluation
 # -------------------------
-# predict.py (bottom section)
-
-from metrics import print_classification_metrics
-
 if __name__ == "__main__":
-    # Load content_20
+    print("🚀 Running evaluation on held-out content_20 set...")
+
     df_content = pd.read_csv("data/content.csv")
     df_corr = pd.read_csv("data/correlations.csv")
     df_corr["content_ids"] = df_corr["content_ids"].str.split()
@@ -128,24 +134,27 @@ if __name__ == "__main__":
 
     for _, row in content_20.iterrows():
         cid = row["id"]
-        query = row["title"] + " " + row["description"] + " " + row["text"]
+        query = f"{row['title']} {row['description']} {row['text']}".strip()
 
-        # Ground truth topics for this content
         true_topics = exploded_corr[exploded_corr["content_ids"] == cid]["topic_id"].tolist()
-
         if not true_topics:
             continue
 
         preds_df = pipeline.predict(query, top_k=50)
 
         for _, pred_row in preds_df.iterrows():
-            predicted_topic = pred_row["topic_id"]
+            topic_id = pred_row["topic_id"]
             prob = pred_row["probability"]
-            label = 1 if predicted_topic in true_topics else 0
+            label = 1 if topic_id in true_topics else 0
 
             y_true_all.append(label)
             y_pred_all.append(int(prob >= 0.5))
             y_proba_all.append(prob)
 
-    # Show metrics
-    print_classification_metrics(y_true_all, y_pred_all, y_proba_all)
+    # 🔍 Final classification metrics
+    print("\n📊 Final Evaluation Metrics:")
+    print(f"Precision:  {precision_score(y_true_all, y_pred_all, average='binary'):.4f}")
+    print(f"Recall:     {recall_score(y_true_all, y_pred_all, average='binary'):.4f}")
+    print(f"F1 Score:   {f1_score(y_true_all, y_pred_all, average='binary'):.4f}")
+    print(f"F2 Score:   {fbeta_score(y_true_all, y_pred_all, average='binary', beta=2):.4f}")
+    print(f"ROC AUC:    {roc_auc_score(y_true_all, y_proba_all):.4f}")
