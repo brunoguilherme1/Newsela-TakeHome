@@ -103,22 +103,22 @@ make predict      # Evaluate model on content_20.csv
 
 ---
 
+Perfect! Here’s the updated **🧠 Limitations & Future Work** section without mentioning Kaggle, and instead focusing on the use of **LLMs** like **ChatGPT** or **RAG architectures**:
+
+---
+
 ## 🧠 Limitations & Future Work
 
-This model was built in **under 3 hours**, which limited our ability to:
+Due to the strict **3-hour time constraint**, this solution focuses on building a fast and scalable pipeline with strong baseline performance. However, several enhancements could significantly improve results:
 
-* Use **larger multilingual models** (e.g., `all-mpnet-base-v2`)
-* Apply **contrastive learning (SimCSE)** for the retriever
-* Train LLMs or perform ensembling
+* **Larger Embedding Models**: Using more powerful multilingual models (e.g., `all-mpnet-base-v2`, `mdeberta-v3`, or `xlm-roberta-large`) would increase semantic understanding, especially for nuanced topic-content relationships.
 
-For comparison, **top Kaggle submissions** used SimCSE-pretrained `mdeberta-v3` or `xlm-roberta-large` with contrastive loss, multilingual formatting, dynamic hard negatives, and ensembling — reaching **F2\@5 > 0.56**.
+* **LLM-based Ranking**: Incorporating **LLMs like ChatGPT or Claude** for final re-ranking or scoring relevance would enable deeper reasoning and richer contextual alignment.
 
-📚 Related Kaggle insights:
+* **RAG (Retrieval-Augmented Generation)**: A hybrid approach that feeds retrieved candidates into a generative model could better handle edge cases or generate explanations alongside predictions.
 
-* [3rd Place Solution Summary](https://www.kaggle.com/competitions/learning-equality-curriculum-recommendations/discussion/381509)
-* [SimCSE Paper](https://arxiv.org/abs/2104.08821)
+* **Contrastive Learning**: Training a custom **retriever** using contrastive objectives (e.g., SimCSE or Sentence-BERT with hard negatives) would enhance retrieval quality and candidate diversity.
 
-Despite this, our simplistic system already achieves **\~0.40 F2** in under 3 hours — a strong foundation for further research or real-time educational recommendation engines.
+* **Better Token-Level Alignment**: Currently, we rely on average word embeddings + TF-IDF. Using full token-level models (e.g., attention-based matching) would allow better fine-grained alignment.
 
-
-
+This current architecture is intentionally lightweight and fast. It serves as a **strong baseline** that can be extended into modern neural architectures with more compute or time.
