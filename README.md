@@ -43,6 +43,9 @@ Despite the time constraint, this 2-stage strategy balances **speed**, **scalabi
 
 ⚡ **Run both notebooks in Google Colab with GPU — total runtime < 1 hour**
 
+> ⚠️ **Note:** This Colab notebook may not render correctly on GitHub due to widget metadata issues.
+> 👉 To view and run the notebook properly, open it directly in Colab:
+> [Open in Colab](https://colab.research.google.com/drive/1nyyirHwWUp6TU1dqTNmPscB8usb9w0QN?usp=sharing)
 ---
 
 ## 🧪 Results
