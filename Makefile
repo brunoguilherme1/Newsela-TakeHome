@@ -1,6 +1,6 @@
 # Makefile
 
-PYTHON := python3.11
+PYTHON := python
 VENV := .venv
 ACTIVATE := source $(VENV)/bin/activate
 
