@@ -176,8 +176,8 @@ kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 best_f2 = -1
 best_model = None
 
-for z in [50, 100]:
-    for x in [0.05]:
+for z in [50, 100,500]:
+    for x in [0.1,0.3]:
         f2_scores = []
 
         for train_idx, val_idx in kf.split(X, y):
