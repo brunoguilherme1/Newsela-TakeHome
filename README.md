@@ -114,4 +114,7 @@ Due to the strict **3-hour time constraint**, this solution focuses on building 
 
 * **Better Token-Level Alignment**: Currently, we rely on average word embeddings + TF-IDF. Using full token-level models (e.g., attention-based matching) would allow better fine-grained alignment.
 
+**Scalability & Experiment Tracking**: For production-grade development, the entire pipeline can be modularized using PySpark, enabling distributed inference and processing on large-scale datasets. I would also incorporate MLflow to track experiments, log models, and compare performance across configurations systematically.
+
+
 This current architecture is intentionally lightweight and fast. It serves as a **simple baseline** that can be extended into modern neural architectures with more compute or time.
