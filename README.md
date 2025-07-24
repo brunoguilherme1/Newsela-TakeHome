@@ -112,4 +112,4 @@ Due to the strict **3-hour time constraint**, this solution focuses on building 
 
 * **Better Token-Level Alignment**: Currently, we rely on average word embeddings + TF-IDF. Using full token-level models (e.g., attention-based matching) would allow better fine-grained alignment.
 
-This current architecture is intentionally lightweight and fast. It serves as a **strong baseline** that can be extended into modern neural architectures with more compute or time.
+This current architecture is intentionally lightweight and fast. It serves as a **simple baseline** that can be extended into modern neural architectures with more compute or time.
