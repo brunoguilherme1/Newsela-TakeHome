@@ -110,9 +110,9 @@ if __name__ == "__main__":
     predictor = TopicPredictor()
 
     request = TopicPredictionRequest(
-        content_title="Understanding Fractions",
-        content_description="An introduction to numerators and denominators using visual aids.",
-        content_text="Students will learn basic fraction concepts using pies and bars."
+        content_title="Newton's law of gravitation,Why are you sticking to your chair (ignoring the spilled glue)?  Why does the earth orbit the sun (or does it)?",
+        content_description="Gravitation defines our everyday life and the structure of the universe.  This tutorial will introduce it to you in the Newtonian sense.",
+        content_text="math"
     )
 
     predicted_topic_ids = predictor.predict(request)
